@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="app.ActJorgeVera.api/app.ActJorgeVera.api.csproj" />
+  <Project Path="app.ActVJorge.common/app.ActVJorge.common.csproj" />
+  <Project Path="app.ActVJorge.entities/app.ActVJorge.entities.csproj" />
+  <Project Path="app.ActVJorge.services/app.ActVJorge.services.csproj" />
+  <Project Path="app.ActVJorgedataAccess/app.ActVJorgedataAccess.csproj" />
+</Solution>
