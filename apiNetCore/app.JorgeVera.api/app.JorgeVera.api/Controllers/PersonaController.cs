@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using app.JorgeVera.api.Entities;
 
 namespace app.JorgeVera.api.Controllers
 {
-
+    
     [ApiController]
     [Route("api/[controller]")]
     public class PersonaController : Controller
@@ -143,7 +144,5 @@ namespace app.JorgeVera.api.Controllers
         }
 
     }
-
-}
 
 }

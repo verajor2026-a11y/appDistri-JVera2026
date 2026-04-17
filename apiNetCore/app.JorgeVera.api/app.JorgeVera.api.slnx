@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="../app.clientesVJorge.api/app.clientesVJorge.dataAccess/app.clientesVJorge.dataAccess.csproj" Id="5b28f030-8790-4454-b1bb-0bd29388a117" />
+  <Project Path="app.clientesVJorge.entities/app.clientesVJorge.entities.csproj" Id="421195f9-59a0-4aab-bf45-b9bb81332910" />
+  <Project Path="APP.clientesVJorge.Services/APP.clientesVJorge.Services.csproj" Id="8860eac4-a18a-463b-aee0-6e6d0ad56a85" />
   <Project Path="app.JorgeVera.api/app.JorgeVera.api.csproj" />
 </Solution>
