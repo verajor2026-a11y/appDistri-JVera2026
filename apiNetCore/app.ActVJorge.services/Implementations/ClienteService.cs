@@ -140,9 +140,11 @@ namespace app.ActVJorge.services.Implementations
 
                 await _repository.Actualizar(cliente);
 
-                clienteDTO.Id = id;
                 response.Result = clienteDTO;
+                response.Result.Id = id;
                 response.Success = true;
+
+                //await _rabbitMQService.PublishMessage(response.Result, "clienteDireccionEvent");
             }
             catch (Exception ex)
             {

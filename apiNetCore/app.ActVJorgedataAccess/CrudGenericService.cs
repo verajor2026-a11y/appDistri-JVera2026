@@ -1,11 +1,6 @@
-﻿using app.ActVJorgedataAccess.context;
+﻿using app.ActVJorge.entities.models;
+using app.ActVJorgedataAccess.context;
 using Microsoft.EntityFrameworkCore;
-using app.ActVJorge.entities.models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace app.ActVJorgedataAccess
 {

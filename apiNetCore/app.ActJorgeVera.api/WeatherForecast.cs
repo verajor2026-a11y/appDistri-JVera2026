@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+using RabbitMQ.Client;
+using System.Text;
+
 namespace app.ActJorgeVera.api
 {
     public class WeatherForecast

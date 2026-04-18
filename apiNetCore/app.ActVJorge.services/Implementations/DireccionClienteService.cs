@@ -12,10 +12,8 @@ namespace app.ActVJorge.services.Implementations
         private readonly IClienteRepository _repositoryCliente;
         private readonly IRabbitMQService _rabbitMQService;
 
-        public DireccionClienteService(
-            IDireccionClienteRepository repository,
-            IClienteRepository repositoryCliente,
-            IRabbitMQService rabbitMQService)
+        public DireccionClienteService(IDireccionClienteRepository repository,
+            IClienteRepository repositoryCliente, IRabbitMQService rabbitMQService)
         {
             _repository = repository;
             _repositoryCliente = repositoryCliente;
@@ -25,10 +23,9 @@ namespace app.ActVJorge.services.Implementations
         public async Task<BaseResponse<DireccionClienteDTO>> Insertar(DireccionClienteDTO dto)
         {
             var response = new BaseResponse<DireccionClienteDTO>();
-
             try
             {
-                var entity = new DireccionCliente
+                DireccionCliente entity = new()
                 {
                     ClienteId = dto.ClienteId,
                     Provincia = dto.Provincia,
@@ -43,6 +40,45 @@ namespace app.ActVJorge.services.Implementations
 
                 dto.Id = entity.Id;
                 response.Result = dto;
+                response.Success = true;
+
+                await EnviarMensajeClienteDireccion(entity);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.ErrorMessage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<BaseResponse<DireccionClienteDTO>> SeleccionarUno(int id)
+        {
+            var response = new BaseResponse<DireccionClienteDTO>();
+
+            try
+            {
+                var entity = await _repository.SeleccionarUno(id);
+
+                if (entity == null)
+                {
+                    response.Success = false;
+                    response.ErrorMessage = "Dirección no encontrada";
+                    return response;
+                }
+
+                response.Result = new DireccionClienteDTO
+                {
+                    Id = entity.Id,
+                    ClienteId = entity.ClienteId,
+                    Provincia = entity.Provincia,
+                    Ciudad = entity.Ciudad,
+                    Direccion = entity.Direccion,
+                    CodigoPostal = entity.CodigoPostal,
+                    Estado = entity.Estado
+                };
+
                 response.Success = true;
             }
             catch (Exception ex)
@@ -84,50 +120,12 @@ namespace app.ActVJorge.services.Implementations
             return response;
         }
 
-        public async Task<BaseResponse<DireccionClienteDTO>> SeleccionarUno(int id)
-        {
-            var response = new BaseResponse<DireccionClienteDTO>();
-
-            try
-            {
-                var entity = await _repository.SeleccionarUno(id);
-
-                if (entity == null)
-                {
-                    response.Success = false;
-                    response.ErrorMessage = "No encontrado";
-                    return response;
-                }
-
-                response.Result = new DireccionClienteDTO
-                {
-                    Id = entity.Id,
-                    ClienteId = entity.ClienteId,
-                    Provincia = entity.Provincia,
-                    Ciudad = entity.Ciudad,
-                    Direccion = entity.Direccion,
-                    CodigoPostal = entity.CodigoPostal,
-                    Estado = entity.Estado
-                };
-
-                response.Success = true;
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.ErrorMessage = ex.Message;
-            }
-
-            return response;
-        }
-
         public async Task<BaseResponse<DireccionClienteDTO>> Actualizar(int id, DireccionClienteDTO dto)
         {
             var response = new BaseResponse<DireccionClienteDTO>();
-
             try
             {
-                var entity = new DireccionCliente
+                DireccionCliente entity = new()
                 {
                     Id = id,
                     ClienteId = dto.ClienteId,
@@ -144,6 +142,8 @@ namespace app.ActVJorge.services.Implementations
                 dto.Id = id;
                 response.Result = dto;
                 response.Success = true;
+
+                await EnviarMensajeClienteDireccion(entity);
             }
             catch (Exception ex)
             {
@@ -161,6 +161,7 @@ namespace app.ActVJorge.services.Implementations
             try
             {
                 await _repository.Eliminar(id);
+
                 response.Result = "OK";
                 response.Success = true;
             }
@@ -171,6 +172,20 @@ namespace app.ActVJorge.services.Implementations
             }
 
             return response;
+        }
+
+
+        private async Task EnviarMensajeClienteDireccion(DireccionCliente direccion)
+        {
+            var cliente = await _repositoryCliente.SeleccionarUno(direccion.ClienteId);
+
+            var direccionClienteEvent = new DireccionClienteEventDto();
+            direccionClienteEvent.ClienteId = cliente.Id;
+            //consultar cliente por id
+            direccionClienteEvent.NombreCompleto = $"{cliente.Nombre} {cliente.Apellido}";
+            direccionClienteEvent.Email = cliente.Email!;
+            direccionClienteEvent.DireccionCompleta = $"{direccion.Ciudad} - {direccion.Provincia} - {direccion.Direccion} - {direccion.CodigoPostal}";
+            await _rabbitMQService.PublishMessage(direccionClienteEvent, "clienteDireccionEvent");
         }
     }
 }

@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\app.ActVJorge.common\app.ActVJorge.common.csproj" />
     <ProjectReference Include="..\app.ActVJorge.entities\app.ActVJorge.entities.csproj" />
     <ProjectReference Include="..\app.ActVJorgedataAccess\app.ActVJorgedataAccess.csproj" />
