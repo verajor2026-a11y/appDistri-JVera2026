@@ -1,37 +1,134 @@
+"""
+abrir terminal para crear entorno vitual:
+  py -m venv myenv    
+Ingresar al entorno virtual:
+  .\myenv\Scripts\activate
+
+Instalar la libreria pika:
+pip install pika
+
+
+main.py
+
+Suscriptor de RabbitMQ que escucha la cola: clienteDireccionEvent
+e imprime los mensajes recibidos en consola.
+"""
+
 import pika
 import json
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(
-        host='localhost',
-        port=5672,
-        virtual_host='/',
-        credentials=pika.PlainCredentials('admin', 'admin')
-    )
-)
+# ==============================
+# CONFIGURACIÓN DE RABBITMQ
+# ==============================
+RABBITMQ_CONFIG = {
+    "username": "admin",
+    "password": "admin",
+    "virtualHost": "/",
+    "port": 5672,
+    "hostname": "localhost"
+}
 
-channel = connection.channel()
+QUEUE_NAME = "clienteDireccionEvent"
 
-channel.queue_declare(queue='clienteDireccionEvent', durable=True)
 
-print("🟢 Conectado a RabbitMQ")
-print("📡 Escuchando cola: clienteDireccionEvent")
-print("⏳ Esperando mensajes...\n")
-
+# ==============================
+# FUNCIÓN CALLBACK
+# ==============================
 def callback(ch, method, properties, body):
-    data = json.loads(body.decode())
+    """
+    Esta función se ejecuta cada vez que llega un mensaje a la cola.
+    """
+    try:
+        # Convertir el mensaje (bytes) a string y luego a JSON
+        mensaje = json.loads(body.decode("utf-8"))
 
-    print("📩 Mensaje recibido:")
-    print("ClienteId:", data.get("ClienteId"))
-    print("Nombre:", data.get("NombreCompleto"))
-    print("Email:", data.get("Email"))
-    print("Dirección:", data.get("DireccionCompleta"))
-    print("-" * 40)
+        print("\n📩 Mensaje recibido:")
+        print(f"Id: {mensaje.get('Id')}")
+        print(f"Estado: {mensaje.get('Estado')}")
+        print(f"Nombre: {mensaje.get('Nombre')}")
+        print(f"Apellido: {mensaje.get('Apellido')}")
+        print(f"Email: {mensaje.get('Email')}")
+        print(f"Cédula: {mensaje.get('CedulaIdentidad')}")
+        print(f"Fecha Nacimiento: {mensaje.get('FechaNacimiento')}")
+        print(f"Teléfono: {mensaje.get('Telefono')}")
+        print("-" * 40)
 
-channel.basic_consume(
-    queue='clienteDireccionEvent',
-    on_message_callback=callback,
-    auto_ack=True
-)
 
-channel.start_consuming()
+        #guardar en una tabla DireccionCliente
+        #  //BDD EcPedidos mysql tabla
+        # public class DireccionCliente
+        # {
+        #     public int id { get; set; } 
+        #     public int ClienteId { get; set; }
+        #     public string NombreCompleto { get; set; } = string.Empty;
+        #     public string Email { get; set; } = string.Empty;
+        #     public string DireccionCompleta { get; set; } = string.Empty;
+        # }
+
+        
+
+    except Exception as e:
+        print("❌ Error procesando mensaje:", str(e))
+
+
+# ==============================
+# CONEXIÓN A RABBITMQ
+# ==============================
+def conectar_rabbitmq():
+    """
+    Crea la conexión con RabbitMQ usando las credenciales configuradas.
+    """
+    credentials = pika.PlainCredentials(
+        RABBITMQ_CONFIG["username"],
+        RABBITMQ_CONFIG["password"]
+    )
+
+    parameters = pika.ConnectionParameters(
+        host=RABBITMQ_CONFIG["hostname"],
+        port=RABBITMQ_CONFIG["port"],
+        virtual_host=RABBITMQ_CONFIG["virtualHost"],
+        credentials=credentials
+    )
+
+    return pika.BlockingConnection(parameters)
+
+
+# ==============================
+# FUNCIÓN PRINCIPAL
+# ==============================
+def main():
+    print("🚀 Iniciando suscriptor RabbitMQ...")
+
+    try:
+        # Crear conexión
+        connection = conectar_rabbitmq()
+        channel = connection.channel()
+
+        # Declarar la cola (por si no existe)
+        channel.queue_declare(queue=QUEUE_NAME, durable=True)
+
+        print(f"📡 Escuchando la cola: {QUEUE_NAME}")
+        print("⏳ Esperando mensajes... Presiona CTRL + C para salir\n")
+
+        # Configurar consumo
+        channel.basic_consume(
+            queue=QUEUE_NAME,
+            on_message_callback=callback,
+            auto_ack=True  # Confirmación automática
+        )
+
+        # Iniciar consumo
+        channel.start_consuming()
+
+    except KeyboardInterrupt:
+        print("\n🛑 Suscriptor detenido por el usuario")
+
+    except Exception as e:
+        print("❌ Error en la conexión:", str(e))
+
+
+# ==============================
+# ENTRY POINT
+# ==============================
+if __name__ == "__main__":
+    main()
