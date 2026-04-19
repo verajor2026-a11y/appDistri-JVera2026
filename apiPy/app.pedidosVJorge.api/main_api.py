@@ -3,6 +3,9 @@ from fastapi import FastAPI
 from app.api.routes import router
 from app.core.database import engine, Base
 
+# ✅ IMPORT CORRECTO
+import app.models.models
+
 app = FastAPI()
 app.title = "Api service ECPedidos"
 app.version = "0.0.1"
