@@ -1,0 +1,12 @@
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\bin\Debug\net8.0\app.ActVJorge.entities.deps.json
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\bin\Debug\net8.0\app.ActVJorge.entities.dll
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\bin\Debug\net8.0\app.ActVJorge.entities.pdb
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.AssemblyInfoInputs.cache
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.AssemblyInfo.cs
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.csproj.CoreCompileInputs.cache
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.sourcelink.json
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.dll
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\refint\app.ActVJorge.entities.dll
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\app.ActVJorge.entities.pdb
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.entities\obj\Debug\net8.0\ref\app.ActVJorge.entities.dll

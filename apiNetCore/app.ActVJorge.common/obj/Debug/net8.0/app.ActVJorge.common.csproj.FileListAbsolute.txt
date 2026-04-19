@@ -1,0 +1,13 @@
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\bin\Debug\net8.0\app.ActVJorge.common.deps.json
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\bin\Debug\net8.0\app.ActVJorge.common.dll
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\bin\Debug\net8.0\app.ActVJorge.common.pdb
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.csproj.AssemblyReference.cache
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.GeneratedMSBuildEditorConfig.editorconfig
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.AssemblyInfoInputs.cache
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.AssemblyInfo.cs
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.csproj.CoreCompileInputs.cache
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.sourcelink.json
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.dll
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\refint\app.ActVJorge.common.dll
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\app.ActVJorge.common.pdb
+C:\appDistri2026\codeSource\apiNetCore\app.ActVJorge.common\obj\Debug\net8.0\ref\app.ActVJorge.common.dll
