@@ -1,0 +1,91 @@
+# Jorge Vera
+
+# Frontend - Consumo de APIs
+
+## Framework utilizado
+
+Se utilizó el framework React para el desarrollo del frontend, debido a su flexibilidad, facilidad de uso y amplia adopción en el desarrollo de interfaces modernas.
+
+---
+
+## Descripción
+
+La aplicación frontend desarrollada permite interactuar con los microservicios del sistema de e-commerce, consumiendo APIs REST para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar).
+
+El sistema permite visualizar información, registrar nuevos datos, editarlos y eliminarlos, proporcionando una interfaz amigable para el usuario.
+
+---
+
+## APIs consumidas
+
+Se consumieron las siguientes APIs del sistema:
+
+* API de Clientes
+* API de Pedidos
+
+Estas APIs permiten gestionar la información principal del sistema mediante solicitudes HTTP.
+
+---
+
+## Cómo consumir un API
+
+Para consumir las APIs se utilizó la librería **axios**, la cual facilita el envío de solicitudes HTTP desde el frontend.
+
+Se implementaron los siguientes métodos:
+
+* GET → Obtener datos
+* POST → Crear registros
+* PUT → Actualizar registros
+* DELETE → Eliminar registros
+
+### Ejemplo de consumo de API
+
+```javascript
+import axios from "axios";
+
+const API_URL = "http://localhost:8000/api/clientes";
+
+// Obtener datos (GET)
+export const obtenerClientes = async () => {
+  const response = await axios.get(API_URL);
+  return response.data;
+};
+
+// Crear cliente (POST)
+export const crearCliente = async (cliente) => {
+  const response = await axios.post(API_URL, cliente);
+  return response.data;
+};
+
+// Actualizar cliente (PUT)
+export const actualizarCliente = async (id, cliente) => {
+  const response = await axios.put(`${API_URL}/${id}`, cliente);
+  return response.data;
+};
+
+// Eliminar cliente (DELETE)
+export const eliminarCliente = async (id) => {
+  const response = await axios.delete(`${API_URL}/${id}`);
+  return response.data;
+};
+```
+
+---
+
+## Evidencias
+
+Se incluyen las siguientes capturas de pantalla del funcionamiento de la aplicación:
+
+* Pantalla principal de la aplicación
+* Listado de datos (GET)
+* Formulario de creación de registros (POST)
+* Edición de datos (PUT)
+* Eliminación de datos (DELETE)
+
+---
+
+## Conclusión
+
+El desarrollo del frontend permitió comprender cómo consumir APIs REST desde una aplicación cliente utilizando React. Se reforzaron conocimientos en el manejo de solicitudes HTTP, manipulación de datos y construcción de interfaces interactivas.
+
+Además, se evidenció la importancia de integrar correctamente el frontend con los microservicios para lograr una aplicación funcional y completa.
